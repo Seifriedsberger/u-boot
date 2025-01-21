@@ -58,11 +58,21 @@
 
 #define CFG_EXTRA_ENV_SETTINGS \
 	BOOTENV \
+	"bootlimit=3\0" \
+	"altbootcmd=" \
+	"  echo Rollback to previous rootfs; " \
+	"  if test ${root_part} = 3; " \
+	"    then setenv root_part 4; setenv distro_bootpart 2; " \
+	"  else " \
+	"    setenv root_part 3; setenv distro_bootpart 1; " \
+	"  fi; setenv bootcount 0; saveenv; "\
+	"  run bootcmd\0" \
 	"boot_script_dhcp=boot.scr\0" \
 	"console=ttymxc0\0" \
 	"fdt_board=eval-v3\0" \
 	MEM_LAYOUT_ENV_SETTINGS \
 	UBOOT_UPDATE \
+	"root_part=3\0" \
 	"setethupdate=if env exists ethaddr; then; else setenv ethaddr " \
 		"00:14:2d:00:00:00; fi; tftpboot ${loadaddr} " \
 		"flash_eth.img && source ${loadaddr}\0" \
