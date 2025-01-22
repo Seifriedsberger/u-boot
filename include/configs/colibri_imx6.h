@@ -62,9 +62,9 @@
 	"altbootcmd=" \
 	"  echo Rollback to previous rootfs; " \
 	"  if test ${root_part} = 3; " \
-	"    then setenv root_part 4; setenv distro_bootpart 2; " \
+	"    then setenv root_part 4; setenv distro_bootpart 2; setenv splashsource mmc_fs2; " \
 	"  else " \
-	"    setenv root_part 3; setenv distro_bootpart 1; " \
+	"    setenv root_part 3; setenv distro_bootpart 1; setenv splashsource mmc_fs1; " \
 	"  fi; setenv bootcount 0; saveenv; "\
 	"  run bootcmd\0" \
 	"boot_script_dhcp=boot.scr\0" \
@@ -84,7 +84,9 @@
 		"load ${interface} ${drive}:1 ${loadaddr} flash_blk.img && " \
 		"source ${loadaddr}\0" \
 	"splashpos=m,m\0" \
-	"splashimage=" __stringify(CONFIG_SYS_LOAD_ADDR) "\0"
+	"splashimage=" __stringify(CONFIG_SYS_LOAD_ADDR) "\0" \
+	"splashfile=splash.bmp\0" \
+	"splashsource=mmc_fs1\0"
 
 /* Miscellaneous configurable options */
 
